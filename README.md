@@ -1,9 +1,9 @@
 ## DSTAdam
 
 The PyTorch implementation of DSTAdam algorithm in：'A decreasing scaling transition scheme from Adam to SGD'
-[https://arxiv.org/abs/2106.06749](https://arxiv.org/abs/2106.06749)
-The implementation is highly based on projects [AdaBound](https://github.com/Luolc/AdaBound) , [Adam](https://github.com/pytorch/pytorch/blob/v1.4.0/torch/optim/adam.py) , [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar), thanks pretty work.
-The test environment we passed is: PyTorch=1.7.0, python=3.7.10.
+[https://arxiv.org/abs/2106.06749](https://arxiv.org/abs/2106.06749)  
+The implementation is highly based on projects [AdaBound](https://github.com/Luolc/AdaBound) , [Adam](https://github.com/pytorch/pytorch/blob/v1.4.0/torch/optim/adam.py) , [pytorch-cifar](https://github.com/kuangliu/pytorch-cifar), thanks pretty work.  
+The test environment we passed is: PyTorch=1.7.0, python=3.7.10.  
 
 ### Usage
 
@@ -43,7 +43,6 @@ For CIFAR-100
 python main.py --cifar=cifar100   # equal to:  python main.py --cifar="cifar10" --optimizer="DSTAdam" --model="resnet18" --lr=0.001 --coeff=1e-8 --up_lr=5 --low_lr=0.005
 
 ```
-
 
 
 
