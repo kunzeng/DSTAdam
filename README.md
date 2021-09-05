@@ -24,7 +24,7 @@ optimizer = DSTAdam(model.parameters(), iters=required, coeff=1e-8, up_lr=1, low
 #rho(float, optional: transition factor
 #    rho = 10 ** (math.log(coeff,10) / iters)
 
-#DSTAdam default value: coeff=1e-5, up_lr=1, low_lr=0.005
+#DSTAdam default value: coeff=1e-8, up_lr=1, low_lr=0.005
 
 ```
 
