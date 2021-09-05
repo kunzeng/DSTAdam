@@ -140,7 +140,7 @@ class DSTAdam(Optimizer):
                 #Scaling the adaptive learning rate
                 denom = decreasing_lr + (denom - decreasing_lr) * (rho ** state['step'])
 
-                # lr_scheduler cannot affect decreasing_lr, this is a workaround to apply lr decay可
+                # lr_scheduler cannot affect decreasing_lr, this is a workaround to apply lr decay
                 decay_lr = group['lr'] / base_lr
                 p.data.addcmul_(exp_avg, denom, value = -decay_lr)
 

@@ -27,7 +27,7 @@ class DSTAdam(Optimizer):
         moment(float, optional): transition moment, moment = transition_iters / iters
         
         iters(int, required): iterations
-            iters = math.ceil(trainSampleSize / batchSize) * epoch
+            iters = math.ceil(trainSampleSize / batchSize) * epochs
                     
         coeff(float, optional): scaling coefficient
       
@@ -134,10 +134,13 @@ class DSTAdam(Optimizer):
                 denom = step_size / denom
                
                 #Decreasing the constant learning rate
-                decreasing_lr = (group['up_lr'] - group['low_lr']) * (1 - 1 / iters * state['step']) + group['low_lr']
+                if not state['step'] <= iters:
+                    raise ValueError("Invalid iters: {}, iters = math.ceil(train_size / batch_size) * epochs".format(iters))   
+                decreasing_lr = (group['up_lr'] - group['low_lr']) * (1 - state['step'] / iters) + group['low_lr']
                 #Scaling the adaptive learning rate
                 denom = decreasing_lr + (denom - decreasing_lr) * (rho ** state['step'])
 
+                # lr_scheduler cannot affect decreasing_lr, this is a workaround to apply lr decay
                 decay_lr = group['lr'] / base_lr
                 p.data.addcmul_(exp_avg, denom, value = -decay_lr)
 
