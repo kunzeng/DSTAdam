@@ -7,7 +7,7 @@ The test environment we passed is: PyTorch=1.7.0, python=3.7.10.
 
 ### Usage
 
-Please directly download the [dstadam](https://github.com/kunzeng/DSTAdam/dstadam) folder and put it in your project, then
+Please directly download the [dstadam](https://github.com/kunzeng/DSTAdam/tree/main/dstadam) folder and put it in your project, then
 
 ```python
 from dstadam import DSTAdam 
