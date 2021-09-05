@@ -273,11 +273,13 @@ def main():
         print('time%.3f:'%(((end-start).seconds)/60))
         print('train_acc: %.2f%%, train_error: %.4f'%(train_acc*100.0, train_error))
         print('test_acc: %.2f%%, test_error: %.4f'%(test_acc*100.0, test_error)) 
-        
-    np.save(root_path + '/savedata/' + info + 'all_train_acc', all_train_acc)
-    np.save(root_path + '/savedata/' + info + 'all_test_acc', all_test_acc)
-    np.save(root_path + '/savedata/' + info + 'all_train_error', all_train_error)
-    np.save(root_path + '/savedata/' + info + 'all_test_error', all_test_error)
+    
+    if not os.path.isdir('results'):
+        os.mkdir('results')
+    np.save(root_path + '/results/' + info + 'all_train_acc', all_train_acc)
+    np.save(root_path + '/results/' + info + 'all_test_acc', all_test_acc)
+    np.save(root_path + '/results/' + info + 'all_train_error', all_train_error)
+    np.save(root_path + '/results/' + info + 'all_test_error', all_test_error)
 
 
 if __name__ == '__main__':
