@@ -14,17 +14,12 @@ from dstadam import DSTAdam
 
 ...
 
-optimizer = DSTAdam(model.parameters(), iters=required, coeff=1e-8, up_lr=1, low_lr=0.005)
+optimizer = DSTAdam(model.parameters(), iters=required)
 
 ...
 
 #iters(int, required): iterations
 #	 iters = math.ceil(train_size / batch_size) * epochs
-#
-#rho(float, optional: transition factor
-#    rho = 10 ** (math.log(coeff,10) / iters)
-
-#DSTAdam default value: coeff=1e-8, up_lr=1, low_lr=0.005
 
 ```
 
