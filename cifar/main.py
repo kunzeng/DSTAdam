@@ -56,11 +56,11 @@ def create_parser():
     parser.add_argument('--epochs',  default=200, type=int, help='iterations')       
     parser.add_argument('--up_lr', default=5, type=float, help='upper learning rate of DSTAdam')
     parser.add_argument('--low_lr', default=0.005, type=float, help='lower learning rate of DSTAdam')    
-    parser.add_argument('--step_size',  default=None, type=int, help='learning rate scheduler StepLR')
+    parser.add_argument('--step_lr',  default=False, type=bool, help='learning rate scheduler StepLR')
     parser.add_argument('--seed',  default=1, type=float, help='random seed')
     parser.add_argument('--coeff',  default=1e-8, type=float, help='scaling coefficient')
     parser.add_argument('--batch_size',  default=128, type=int, help='batch_size')
-    parser.add_argument('--amsgrad',  default=False, type=bool, help='amsgrad')
+
     args = parser.parse_args() # parsering parameters
     
     return args
@@ -196,8 +196,8 @@ def test(epoch, net, test_loader, optimizer, criterion, device, seed):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
   
-        test_error = test_loss/(batch_idx+1)
-        test_acc = correct/total
+        test_error = test_loss / (batch_idx+1)
+        test_acc = correct / total
         
     return  test_acc, test_error
 
@@ -218,7 +218,6 @@ def main():
     iters = math.ceil(len(train_loader.dataset) / args.batch_size) * args.epochs
     net = create_model(args, device)
     optimizer = create_optimizer(args, net, iters)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.step_size, gamma=0.1, last_epoch=-1)
     criterion = nn.CrossEntropyLoss()
     root_path = os.path.abspath('./')
     info = args.cifar + '-' + args.optimizer + '-' + args.model + '-'
@@ -248,7 +247,8 @@ def main():
 
         train_acc, train_error = train(epoch, net, args, train_loader, optimizer, criterion, device, seed)
         test_acc, test_error = test(epoch, net, test_loader, optimizer, criterion, device, seed)
-        if args.step_size:
+        if args.step_lr:
+            scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=150, gamma=0.1, last_epoch=-1)
             scheduler.step()
             
         # Save checkpoint.
